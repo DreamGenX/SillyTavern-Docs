@@ -112,33 +112,35 @@ This makes the message examples and the initial message very important.
 
 #### Formatting Message Examples
 
-The {%{`{{mesExamples}}`}%} are appended at the end of the system prompt, allowing us to leverage the ChatML+Text format. Here's how the examples should be formatted:
+The {%{`{{mesExamples}}`}%} are appended at the end of the system prompt, allowing us to leverage the ChatML+Text format.
+
+
+When formatting the examples, you have two options:
+
+##### Tavern V2:
+
+If you stick precisely to the the Tavern V2 format, it will be automatically converted into correct prompt by SillyTavern:
 
 {%{
-
 ```
-<|im_end|>
-<|im_start|>text names= {{user}}
-(user's turn)<|im_end|>
-<|im_start|>text names= {{char}}
-(char's turn)<|im_end|>
-<|im_start|>text names= {{user}}
-(user's turn)<|im_end|>
-<|im_start|>text names= {{char}}
-(char's turn)
+<START>
+{{user}}: (user's message)
+{{char}}: (char's message)
+<START>
+{{user}}: (user's message)
+{{char}}: (char's message)
 ```
-
 }%}
 
-Note that we have `<|im_end|>` at the start, to close the system prompt, and that we do not have `<|im_end|>` at the end, as that will be added by SillyTavern.
+##### Manual ChatML:
 
-You can also use `user` turns to provide context for the example conversations:
+If you have more complex needs, like if you need to stick "instructions" into the examples, you can write the prompt manually: 
 
 {%{
-
 ```
 <|im_end|>
 <|im_start|>user
+(instruction, for example:)
 Before the main story starts, {{char}} describes their body to {{user}}.<|im_end|>
 <|im_start|>text names= {{user}}
 (user's turn)<|im_end|>
@@ -147,8 +149,9 @@ Before the main story starts, {{char}} describes their body to {{user}}.<|im_end
 <|im_start|>user
 {{user}} and {{char}} meet up for coffee.
 ```
-
 }%}
+
+Note that we have `<|im_end|>` at the start, to close the system prompt, and that we do not have `<|im_end|>` at the end, as that will be added by SillyTavern.
 
 ### Examples
 
